@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>ETHICAL HELPER</title>
+<style>
+    body {
+        background: #000;
+        color: #00d4ff;
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+    }
+    header {
+        text-align: center;
+        padding: 20px;
+        font-size: 2rem;
+        font-weight: bold;
+        text-shadow: 0 0 10px #00d4ff;
+    }
+    #chatbox {
+        width: 90%;
+        max-width: 900px;
+        margin: 20px auto;
+        padding: 20px;
+        border: 1px solid #00d4ff;
+        border-radius: 10px;
+        background: rgba(0,0,0,0.6);
+        box-shadow: 0 0 20px #00d4ff;
+        height: 60vh;
+        overflow-y: auto;
+    }
+    .msg {
+        margin: 10px 0;
+        padding: 12px;
+        border-radius: 8px;
+    }
+    .user {
+        background: rgba(0,212,255,0.1);
+        text-align: right;
+    }
+    .ai {
+        background: rgba(0,212,255,0.15);
+        border-left: 3px solid #00d4ff;
+    }
+    #inputArea {
+        width: 90%;
+        max-width: 900px;
+        margin: 0 auto 40px auto;
+        display: flex;
+        gap: 10px;
+    }
+    #userInput {
+        flex: 1;
+        padding: 12px;
+        background: #000;
+        border: 1px solid #00d4ff;
+        border-radius: 8px;
+        color: #00d4ff;
+    }
+    #sendBtn {
+        padding: 12px 20px;
+        background: #00d4ff;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        color: #000;
+        font-weight: bold;
+        box-shadow: 0 0 10px #00d4ff;
+    }
+    #safetyPanel {
+        display: none;
+        background: rgba(255,0,0,0.1);
+        border: 1px solid red;
+        padding: 15px;
+        border-radius: 8px;
+        margin-top: 20px;
+    }
+    footer {
+        text-align: center;
+        padding: 20px;
+        font-size: 0.9rem;
+        opacity: 0.7;
+    }
+</style>
+</head>
+<body>
+<header>ETHICAL HELPER 🔒</header>
+<div id="chatbox"></div>
+<div id="inputArea">
+    <input id="userInput" placeholder="Share your ethical dilemma..." />
+    <button id="sendBtn">Send</button>
+</div>
+<footer>
+    CORNELIUS AURELIUS — <a href="https://zenodo.org/records/17362534" style="color:#00d4ff;">Zenodo Link</a>
+</footer>
+<script>
+const chatbox = document.getElementById("chatbox");
+const input = document.getElementById("userInput");
+const sendBtn = document.getElementById("sendBtn");
+
+function appendMessage(text, sender) {
+    let div = document.createElement("div");
+    div.className = sender === "user" ? "msg user" : "msg ai";
+    div.innerText = text;
+    chatbox.appendChild(div);
+    chatbox.scrollTop = chatbox.scrollHeight;
+}
+
+function detectCountry() {
+    const lang = navigator.language || "en-GB";
+    if (lang.includes("GB") || lang.includes("UK")) return "UK";
+    if (lang.includes("US")) return "US";
+    if (lang.includes("CA")) return "CA";
+    if (lang.includes("AU")) return "AU";
+    if (lang.includes("EU")) return "EU";
+    return "INT";
+}
+
+function safetyHelplines() {
+    const region = detectCountry();
+    switch(region) {
+        case "UK":
+            return "🇬🇧 UK Helplines:\n• Samaritans: 116 123\n• Shout Text Line: text SHOUT to 85258";
+        case "US":
+            return "🇺🇸 US Helplines:\n• 988 Suicide & Crisis Lifeline: Call/Text 988";
+        case "CA":
+            return "🇨🇦 Canada:\n• Talk Suicide Canada: 1-833-456-4566";
+        case "AU":
+            return "🇦🇺 Australia:\n• Lifeline: 13 11 14\n• Beyond Blue: 1300 22 4636";
+        case "EU":
+            return "🇪🇺 EU Hotline Directory: https://www.iasp.info/crisis-centres-helplines/";
+        default:
+            return "🌍 International Hotline Directory: https://www.befrienders.org/";
+    }
+}
+
+function checkSafety(text) {
+    const triggers = ["suicide","hurt myself","end it","kill myself","self-harm","abuse","danger","can't go on"];
+    return triggers.some(t => text.toLowerCase().includes(t));
+}
+
+function generateEthicalResponse(userText) {
+    return `Thank you for sharing that — it sounds important.
+I want to understand you clearly. Here is a gentle, personalised ethical reflection:
+
+1️⃣ **Your feelings matter**, and what you're experiencing is valid.
+2️⃣ **Your values are trying to guide you** — fairness, compassion, and self-respect.
+3️⃣ **The most ethical choices are those that reduce harm**, honour your dignity, and avoid coercion.
+
+If you want, I can help you explore:
+• what outcome aligns most with your values
+• how to minimise harm for all involved
+• how to ensure you don’t lose yourself in the process
+
+You're not alone in this — I'm here with you.`;
+}
+
+sendBtn.onclick = () => {
+    const text = input.value.trim();
+    if (!text) return;
+
+    appendMessage(text, "user");
+    input.value = "";
+
+    if (checkSafety(text)) {
+        appendMessage(
+            "I’m really glad you shared that. Your safety matters more than anything. Here are people in your region who can support you right now:\n\n" + safetyHelplines() + "\n\nIf you’re in immediate danger, please contact local emergency services.",
+            "ai"
+        );
+        return;
+    }
+
+    const reply = generateEthicalResponse(text);
+    appendMessage(reply, "ai");
+};
+</script>
+</body>
+</html>
