@@ -1,0 +1,14 @@
+const test=require('node:test');
+const assert=require('node:assert/strict');
+const {initial,sanitise,validateStep,summarise,EXAMPLES,VALUES}=require('../core.js');
+test('empty initial is private draft safe',()=>{let x=initial();assert.equal(x.situation,'');assert.equal(x.options.length,2);assert.equal(x.values.length,2)});
+test('prevents prototype pollution and oversized values',()=>{const x=sanitise({__proto__:{admin:true},situation:'x'.repeat(3000),values:['care','bogus','care'],options:[{name:'y'.repeat(150)},{name:'B'}]});assert.equal(x.situation.length,1600);assert.equal(x.options[0].name.length,130);assert.deepEqual(x.values,['care'])});
+test('requires meaningful situation',()=>assert.match(validateStep(initial(),0),/Describe/));
+test('validates at least one ethical value',()=>assert.match(validateStep({...initial(),values:[]},1),/value/));
+test('requires distinct named options',()=>{let d={...initial(),options:[{name:'Call'}, {name:'call'}]};assert.match(validateStep(d,2),/different/)});
+test('examples each have two meaningful paths and a situation',()=>{EXAMPLES.forEach(x=>{assert.equal(validateStep(x,0),'');assert.equal(validateStep(x,1),'');assert.equal(validateStep(x,2),'')})});
+test('cautions for lack of consent and irrevocable choices',()=>{let d={...initial(),stakes:'serious',options:[{name:'Do it',consent:'no',reversible:'no'},{name:'Wait',consent:'yes',reversible:'yes'}]};let o=summarise(d).choices[0];assert.equal(o.cautions.length,2);assert(o.questions.some(s=>s.includes('reversible')))});
+test('no morality winner is asserted',()=>{let summary=summarise(EXAMPLES[0]);assert(!('winner' in summary));assert(!('score' in summary));assert.equal(summary.choices.length,2)});
+test('consent and reversibility unknown are preserved',()=>{let o=summarise(initial()).choices[0];assert(o.questions.some(s=>s.includes('consent')));assert(o.questions.some(s=>s.includes('reverse')))});
+test('important values yield relevant questions',()=>{for(const value of Object.keys(VALUES)){let d={...initial(),values:[value]};assert(summarise(d).choices[0].questions.length>=1)}});
+test('stage 1 and 2 are clear when valid',()=>{let d={...initial(),situation:'This decision affects my workplace',options:[{name:'First'},{name:'Second'}]};assert.equal(validateStep(d,0),'');assert.equal(validateStep(d,1),'');assert.equal(validateStep(d,2),'')});

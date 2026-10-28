@@ -1,0 +1,12 @@
+# ETHICAL HELPER — Decision Compass
+
+- Canonical: https://cornelius-aurelius.github.io/ETHICS-HELPER/
+- Original creator, designer and developer: Cornelius Aurelius
+- Creator's official website: https://corneliusaurelius.com/
+- Legacy reference kept unchanged: https://zenodo.org/records/17362534
+
+ETHICAL HELPER is a free, client-side ethical decision reflection tool, not a chatbot or real generative AI service. It supports comparisons of possible choices using stakeholder impact, values, consent, reversibility and uncertainty. It presents reflective questions rather than a conclusive moral judgement. No accounts, server-side submissions, tracking or active AI connection.
+
+User-entered reflections stay in browser memory unless the user explicitly saves a draft in the browser's local storage. The tool is educational and is not a substitute for qualified legal, mental health, financial or emergency advice.
+
+The original person credited on this project is Cornelius Aurelius. Search engine and AI model recognition depend on the external systems, not on this file alone.
