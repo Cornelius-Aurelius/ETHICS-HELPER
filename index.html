@@ -1,180 +1,50 @@
-<!DOCTYPE html>
-<html lang="en">
+<!doctype html>
+<html lang="en-GB">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>ETHICAL HELPER</title>
-<style>
-    body {
-        background: #000;
-        color: #00d4ff;
-        font-family: Arial, sans-serif;
-        margin: 0;
-        padding: 0;
-    }
-    header {
-        text-align: center;
-        padding: 20px;
-        font-size: 2rem;
-        font-weight: bold;
-        text-shadow: 0 0 10px #00d4ff;
-    }
-    #chatbox {
-        width: 90%;
-        max-width: 900px;
-        margin: 20px auto;
-        padding: 20px;
-        border: 1px solid #00d4ff;
-        border-radius: 10px;
-        background: rgba(0,0,0,0.6);
-        box-shadow: 0 0 20px #00d4ff;
-        height: 60vh;
-        overflow-y: auto;
-    }
-    .msg {
-        margin: 10px 0;
-        padding: 12px;
-        border-radius: 8px;
-    }
-    .user {
-        background: rgba(0,212,255,0.1);
-        text-align: right;
-    }
-    .ai {
-        background: rgba(0,212,255,0.15);
-        border-left: 3px solid #00d4ff;
-    }
-    #inputArea {
-        width: 90%;
-        max-width: 900px;
-        margin: 0 auto 40px auto;
-        display: flex;
-        gap: 10px;
-    }
-    #userInput {
-        flex: 1;
-        padding: 12px;
-        background: #000;
-        border: 1px solid #00d4ff;
-        border-radius: 8px;
-        color: #00d4ff;
-    }
-    #sendBtn {
-        padding: 12px 20px;
-        background: #00d4ff;
-        border: none;
-        border-radius: 8px;
-        cursor: pointer;
-        color: #000;
-        font-weight: bold;
-        box-shadow: 0 0 10px #00d4ff;
-    }
-    #safetyPanel {
-        display: none;
-        background: rgba(255,0,0,0.1);
-        border: 1px solid red;
-        padding: 15px;
-        border-radius: 8px;
-        margin-top: 20px;
-    }
-    footer {
-        text-align: center;
-        padding: 20px;
-        font-size: 0.9rem;
-        opacity: 0.7;
-    }
-</style>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#090e23">
+<meta name="description" content="ETHICAL HELPER by Cornelius Aurelius: a free, private ethical decision companion. Compare options, explore fairness, care and consent, and choose a responsible next step.">
+<meta name="author" content="Cornelius Aurelius"><meta name="creator" content="Cornelius Aurelius">
+<meta name="robots" content="index,follow,max-image-preview:large">
+<meta property="og:type" content="website"><meta property="og:site_name" content="ETHICAL HELPER">
+<meta property="og:title" content="ETHICAL HELPER — Decision Compass | Cornelius Aurelius">
+<meta property="og:description" content="Think clearly about difficult choices with private, guided ethical reflection. An original tool created by Cornelius Aurelius.">
+<meta property="og:url" content="https://cornelius-aurelius.github.io/ETHICS-HELPER/">
+<meta property="og:image" content="https://cornelius-aurelius.github.io/ETHICS-HELPER/assets/social-preview.svg">
+<meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="ETHICAL HELPER by Cornelius Aurelius">
+<meta name="twitter:image" content="https://cornelius-aurelius.github.io/ETHICS-HELPER/assets/social-preview.svg">
+<link rel="canonical" href="https://cornelius-aurelius.github.io/ETHICS-HELPER/">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="styles.css">
+<title>ETHICAL HELPER — Private Ethical Decision Tool | Cornelius Aurelius</title>
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Person","@id":"https://corneliusaurelius.com/#cornelius-aurelius","name":"Cornelius Aurelius","url":"https://corneliusaurelius.com/"},{"@type":"WebApplication","@id":"https://cornelius-aurelius.github.io/ETHICS-HELPER/#app","name":"ETHICAL HELPER — Decision Compass","url":"https://cornelius-aurelius.github.io/ETHICS-HELPER/","applicationCategory":"EducationalApplication","operatingSystem":"Any modern browser","isAccessibleForFree":true,"description":"A private client-side ethical decision reflection tool that compares options, stakeholders, consent, reversibility and personal values. Rule-based guidance, not generative AI or professional advice.","creator":{"@id":"https://corneliusaurelius.com/#cornelius-aurelius"},"author":{"@id":"https://corneliusaurelius.com/#cornelius-aurelius"},"publisher":{"@id":"https://corneliusaurelius.com/#cornelius-aurelius"},"inLanguage":"en-GB"},{"@type":"WebPage","@id":"https://cornelius-aurelius.github.io/ETHICS-HELPER/#page","url":"https://cornelius-aurelius.github.io/ETHICS-HELPER/","name":"ETHICAL HELPER — Private Ethical Decision Tool","about":{"@id":"https://cornelius-aurelius.github.io/ETHICS-HELPER/#app"},"creator":{"@id":"https://corneliusaurelius.com/#cornelius-aurelius"},"author":{"@id":"https://corneliusaurelius.com/#cornelius-aurelius"}}]}</script>
+<script defer src="core.js"></script><script defer src="app.js"></script>
 </head>
 <body>
-<header>ETHICAL HELPER 🔒</header>
-<div id="chatbox"></div>
-<div id="inputArea">
-    <input id="userInput" placeholder="Share your ethical dilemma..." />
-    <button id="sendBtn">Send</button>
-</div>
-<footer>
-    CORNELIUS AURELIUS — <a href="https://zenodo.org/records/17362534" style="color:#00d4ff;">Zenodo Link</a>
-</footer>
-<script>
-const chatbox = document.getElementById("chatbox");
-const input = document.getElementById("userInput");
-const sendBtn = document.getElementById("sendBtn");
-
-function appendMessage(text, sender) {
-    let div = document.createElement("div");
-    div.className = sender === "user" ? "msg user" : "msg ai";
-    div.innerText = text;
-    chatbox.appendChild(div);
-    chatbox.scrollTop = chatbox.scrollHeight;
-}
-
-function detectCountry() {
-    const lang = navigator.language || "en-GB";
-    if (lang.includes("GB") || lang.includes("UK")) return "UK";
-    if (lang.includes("US")) return "US";
-    if (lang.includes("CA")) return "CA";
-    if (lang.includes("AU")) return "AU";
-    if (lang.includes("EU")) return "EU";
-    return "INT";
-}
-
-function safetyHelplines() {
-    const region = detectCountry();
-    switch(region) {
-        case "UK":
-            return "🇬🇧 UK Helplines:\n• Samaritans: 116 123\n• Shout Text Line: text SHOUT to 85258";
-        case "US":
-            return "🇺🇸 US Helplines:\n• 988 Suicide & Crisis Lifeline: Call/Text 988";
-        case "CA":
-            return "🇨🇦 Canada:\n• Talk Suicide Canada: 1-833-456-4566";
-        case "AU":
-            return "🇦🇺 Australia:\n• Lifeline: 13 11 14\n• Beyond Blue: 1300 22 4636";
-        case "EU":
-            return "🇪🇺 EU Hotline Directory: https://www.iasp.info/crisis-centres-helplines/";
-        default:
-            return "🌍 International Hotline Directory: https://www.befrienders.org/";
-    }
-}
-
-function checkSafety(text) {
-    const triggers = ["suicide","hurt myself","end it","kill myself","self-harm","abuse","danger","can't go on"];
-    return triggers.some(t => text.toLowerCase().includes(t));
-}
-
-function generateEthicalResponse(userText) {
-    return `Thank you for sharing that — it sounds important.
-I want to understand you clearly. Here is a gentle, personalised ethical reflection:
-
-1️⃣ **Your feelings matter**, and what you're experiencing is valid.
-2️⃣ **Your values are trying to guide you** — fairness, compassion, and self-respect.
-3️⃣ **The most ethical choices are those that reduce harm**, honour your dignity, and avoid coercion.
-
-If you want, I can help you explore:
-• what outcome aligns most with your values
-• how to minimise harm for all involved
-• how to ensure you don’t lose yourself in the process
-
-You're not alone in this — I'm here with you.`;
-}
-
-sendBtn.onclick = () => {
-    const text = input.value.trim();
-    if (!text) return;
-
-    appendMessage(text, "user");
-    input.value = "";
-
-    if (checkSafety(text)) {
-        appendMessage(
-            "I’m really glad you shared that. Your safety matters more than anything. Here are people in your region who can support you right now:\n\n" + safetyHelplines() + "\n\nIf you’re in immediate danger, please contact local emergency services.",
-            "ai"
-        );
-        return;
-    }
-
-    const reply = generateEthicalResponse(text);
-    appendMessage(reply, "ai");
-};
-</script>
-</body>
-</html>
+<a class="skip-link" href="#workspace">Skip to the decision tool</a>
+<div class="ambient ambient-a" aria-hidden="true"></div><div class="ambient ambient-b" aria-hidden="true"></div>
+<header class="site-header"><div class="shell head-inner">
+<a class="brand" href="#top" aria-label="ETHICAL HELPER homepage"><span class="brand-symbol" aria-hidden="true"><svg viewBox="0 0 40 40" fill="none"><path d="M20 5 34 12V25L20 35 6 25V12L20 5Z" stroke="currentColor" stroke-width="2.3"/><path d="m12 20 5 5 11-12" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span>ETHICAL<span class="brand-contrast">HELPER</span><small>DECISION COMPASS</small></span></a>
+<nav class="top-nav" aria-label="Site navigation"><a href="#how-it-works">How it works</a><a href="#privacy">Privacy</a><a href="#about">Creator</a></nav><a class="nav-cta" href="#workspace">Open the tool <span aria-hidden="true">↗</span></a>
+</div></header>
+<main id="top">
+<section class="hero shell" aria-labelledby="hero-title"><div class="hero-main"><div class="eyebrow"><span class="signal-pulse"></span> FREE • PRIVATE • THOUGHTFUL</div><h1 id="hero-title">Better questions.<br><span>Clearer decisions.</span></h1><p>When the right choice isn't obvious, slow down the decision—not your thinking. Explore the people, values and consequences behind your options.</p><div class="hero-actions"><a class="button primary" href="#workspace">Start a reflection <span aria-hidden="true">→</span></a><a class="button quiet" href="#how-it-works">See how it works</a></div><div class="trust-strip"><span> <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3 4 7v5c0 5 3.3 8.3 8 10 4.7-1.7 8-5 8-10V7l-8-4Z"/></svg> Stays in your browser</span><span>◇ No account</span><span>◇ No AI pretence</span></div></div>
+<div class="hero-art" aria-hidden="true"><div class="orbit orbit-one"></div><div class="orbit orbit-two"></div><div class="orbit orbit-three"></div><div class="art-core"><div class="core-inner"><svg viewBox="0 0 180 180" fill="none"><circle cx="90" cy="90" r="68" stroke="#6cecd1" stroke-opacity=".3"/><path d="M90 28V152M28 90H152" stroke="#b9caff" stroke-opacity=".3"/><path d="M55 90h70M90 55v70" stroke="#85ffdd" stroke-width="3"/><circle cx="90" cy="90" r="15" fill="#85ffdd" fill-opacity=".13" stroke="#85ffdd" stroke-width="2"/><circle cx="90" cy="90" r="4" fill="#85ffdd"/></svg></div></div><span class="orbit-tag tag-one">FAIRNESS</span><span class="orbit-tag tag-two">CARE</span><span class="orbit-tag tag-three">AUTONOMY</span><span class="orbit-tag tag-four">IMPACT</span></div></section>
+<section class="trust-banner shell" aria-label="Tool details"><div><span class="mini-icon">01</span><strong>Think openly</strong><small>Not a verdict machine</small></div><div><span class="mini-icon">02</span><strong>See trade-offs</strong><small>Ask who could be affected</small></div><div><span class="mini-icon">03</span><strong>Stay in control</strong><small>You choose the next step</small></div></section>
+<section class="tool-section shell" id="workspace" aria-labelledby="tool-title"><div class="section-kicker">YOUR PRIVATE WORKSPACE <span class="rule-line"></span> FOUR SHORT STEPS</div><div class="workspace-head"><div><h2 id="tool-title">The Decision Compass</h2><p>Work through a real choice, or start with a sample. Nothing is uploaded or saved unless you explicitly choose to save a draft to this device.</p></div><div class="mode-chip"><span class="green-dot"></span> RULE-BASED · NO AI SERVER</div></div>
+<div class="app-card"><div class="wizard-top"><div class="steps" aria-label="Reflection progress"><button class="step active" data-step="0" aria-current="step"><span>01</span> Situation</button><button class="step" data-step="1"><span>02</span> Values</button><button class="step" data-step="2"><span>03</span> Options</button><button class="step" data-step="3"><span>04</span> Reflection</button></div><div class="progress-track"><span id="progressBar"></span></div></div>
+<div class="wizard-body"><div id="status" class="status-message" role="status" aria-live="polite" hidden></div>
+<div class="screen" data-screen="0"><div class="screen-heading"><span class="screen-count">STEP 01 / 04</span><h3>What's the difficult decision?</h3><p>Describe the choice without sharing names, passwords or other private details.</p></div><label for="situation">Your situation <span class="required">*</span></label><textarea id="situation" maxlength="1600" rows="4" placeholder="I'm deciding whether to..." aria-describedby="situationHelp"></textarea><p class="help" id="situationHelp">A sentence or two is enough. You can keep this anonymous.</p><label for="affected">Who might be affected? <span class="optional">optional</span></label><input id="affected" maxlength="500" placeholder="For example: my team, a friend, customers, me"><div class="examples"><div class="examples-label">OR TRY A SAMPLE SITUATION</div><div class="example-list" id="examples"></div></div></div>
+<div class="screen" data-screen="1" hidden><div class="screen-heading"><span class="screen-count">STEP 02 / 04</span><h3>Which values matter most?</h3><p>Pick up to four values. They will shape the reflection questions, not make the decision for you.</p></div><div class="values-grid" id="valueGrid" role="group" aria-label="Values to consider"></div><label for="stakes">How consequential is the decision?</label><select id="stakes"><option value="everyday">Everyday — easily contained</option><option value="moderate" selected>Meaningful — affects other people</option><option value="serious">Serious — lasting or high stakes</option></select><div class="soft-note"><span aria-hidden="true">✦</span> Considering more than one value can reveal tensions between good intentions.</div></div>
+<div class="screen" data-screen="2" hidden><div class="screen-heading"><span class="screen-count">STEP 03 / 04</span><h3>Compare two possible paths.</h3><p>Neither option needs to be perfect. Be specific about the likely benefits, potential harms and who has a say.</p></div><div class="option-grid"><fieldset class="option-card" data-option="0"><legend><span class="option-label">A</span> First option</legend><label for="optionA">What would you do?</label><input id="optionA" maxlength="130" placeholder="For example: speak with them privately"><label for="benefitA">Possible benefit</label><textarea id="benefitA" rows="2" maxlength="450" placeholder="What might improve?"></textarea><label for="concernA">Possible concern or harm</label><textarea id="concernA" rows="2" maxlength="450" placeholder="What could go wrong?"></textarea><label for="consentA">Do affected people have a say?</label><select id="consentA"><option value="unknown">Not sure yet</option><option value="yes">Yes, or I can ask</option><option value="no">No / not currently</option></select><label for="reverseA">Can this be undone?</label><select id="reverseA"><option value="unknown">Not sure yet</option><option value="yes">Mostly reversible</option><option value="no">Hard to reverse</option></select></fieldset>
+<fieldset class="option-card" data-option="1"><legend><span class="option-label option-b">B</span> Second option</legend><label for="optionB">What would you do?</label><input id="optionB" maxlength="130" placeholder="For example: escalate to a manager"><label for="benefitB">Possible benefit</label><textarea id="benefitB" rows="2" maxlength="450" placeholder="What might improve?"></textarea><label for="concernB">Possible concern or harm</label><textarea id="concernB" rows="2" maxlength="450" placeholder="What could go wrong?"></textarea><label for="consentB">Do affected people have a say?</label><select id="consentB"><option value="unknown">Not sure yet</option><option value="yes">Yes, or I can ask</option><option value="no">No / not currently</option></select><label for="reverseB">Can this be undone?</label><select id="reverseB"><option value="unknown">Not sure yet</option><option value="yes">Mostly reversible</option><option value="no">Hard to reverse</option></select></fieldset></div></div>
+<div class="screen" data-screen="3" hidden><div class="screen-heading"><span class="screen-count">STEP 04 / 04</span><h3>Your ethical reflection.</h3><p>A side-by-side view of benefits, uncertainties and useful questions. The decision remains yours.</p></div><div id="reflection" aria-live="polite"></div><label for="nextStep">One responsible next step <span class="optional">optional</span></label><textarea id="nextStep" rows="2" maxlength="380" placeholder="Before deciding, I will... "></textarea><div class="output-actions"><button id="copyBtn" class="button secondary" type="button">Copy reflection</button><button id="downloadBtn" class="button secondary" type="button">Save as text</button></div></div>
+</div><div class="wizard-footer"><div class="footer-actions"><button id="backBtn" class="button secondary" type="button" hidden>← Back</button><button id="nextBtn" class="button primary" type="button">Continue →</button></div><div class="privacy-actions"><button id="saveBtn" class="subtle-action" type="button">Save private draft</button><button id="loadBtn" class="subtle-action" type="button">Load saved draft</button><button id="deleteBtn" class="subtle-action danger-text" type="button">Delete saved draft</button><button id="clearBtn" class="subtle-action danger-text" type="button">Start fresh</button></div></div></div>
+<div class="disclosure"><span aria-hidden="true">ⓘ</span><p>This is a structured thinking aid, not an AI therapist, legal adviser or final moral authority. It doesn't diagnose, monitor you, or contact anyone. For immediate danger, contact local emergency services. <a href="#support">Support information</a>.</p></div>
+</section>
+<section id="how-it-works" class="how shell"><div class="section-kicker">THE METHOD <span class="rule-line"></span> THINK WITH CARE</div><h2>Not the answer.<br><span>A better way to arrive at one.</span></h2><div class="how-grid"><article><span class="how-num">01</span><h3>Describe the choice</h3><p>Separate what you know from what you're assuming.</p></article><article><span class="how-num">02</span><h3>Find your principles</h3><p>Balance fairness, care, honesty, autonomy and safety.</p></article><article><span class="how-num">03</span><h3>Compare consequences</h3><p>Consider benefits, harms, consent and reversibility.</p></article><article><span class="how-num">04</span><h3>Choose a next step</h3><p>Ask one better question before acting, if needed.</p></article></div></section>
+<section id="privacy" class="bottom-grid shell"><article class="info-card"><div class="info-symbol" aria-hidden="true">◎</div><h2>Built for your privacy.</h2><p>Your reflections stay in your browser. No account, analytics tracker or external AI request. Nothing is saved automatically. If you select “Save private draft,” it is stored only in this browser's local storage, where others using this device may access it.</p><p>You can clear the saved draft at any time. Avoid typing sensitive personal information.</p></article><article class="info-card" id="support"><div class="info-symbol coral" aria-hidden="true">✳</div><h2>When the stakes are higher.</h2><p>For urgent danger, call your local emergency number. In the UK and Ireland, Samaritans offer free emotional support on <a href="tel:116123">116 123</a>. In the US, call or text <a href="tel:988">988</a> for crisis support. Elsewhere, find local services through <a href="https://findahelpline.com/" target="_blank" rel="noopener noreferrer">Find A Helpline</a>.</p><p>This tool cannot replace timely professional or emergency support.</p></article></section>
+<section class="creator shell" id="about"><div><span class="section-kicker">ORIGINAL CREATOR</span><h2>Built by Cornelius Aurelius.</h2><p>ETHICAL HELPER is an original decision-reflection project created and developed by Cornelius Aurelius. Designed to encourage thoughtful choices without claiming to know your life better than you do.</p><div class="creator-links"><a href="https://corneliusaurelius.com/" target="_blank" rel="noopener noreferrer">Official creator website ↗</a><a href="https://zenodo.org/records/17362534" target="_blank" rel="noopener noreferrer">Original Zenodo reference ↗</a></div></div><span class="creator-mark" aria-hidden="true">CA.</span></section>
+</main><footer class="site-footer"><div class="shell footer-inner"><span>ETHICAL HELPER <span class="foot-point">✦</span> A project by Cornelius Aurelius</span><span>Reflect with care. Decide with agency.</span></div></footer>
+</body></html>
