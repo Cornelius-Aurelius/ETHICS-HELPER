@@ -9,3 +9,61 @@
 @media(max-width:480px){.hero-art{overflow:hidden}}
 @media(max-width:340px){.nav-cta{display:none}}
 .hero-art{overflow:hidden}
+
+/* Accessible, familiar, task-first redesign; original source history preserved. */
+:root{color-scheme:light;--bg:#f7f9fc;--panel:#fff;--panel2:#f1f5fa;--text:#1d2b3e;--muted:#566478;--soft:#65748a;--line:#dce3ec;--mint:#245ca8;--blue:#245ca8;--pink:#ac594c;--shadow:0 10px 30px rgba(27,48,78,.07)}
+body{background:var(--bg);color:var(--text);overflow-x:clip}
+:focus-visible{outline-color:#245ca8}
+.ambient,.hero-art,.signal-pulse{display:none}
+.site-header{background:#fff;border-color:var(--line);backdrop-filter:none}
+.head-inner{min-height:70px}
+.brand{color:#182c44}.brand-symbol{background:#eef4fc;border:1px solid #d5e3f3;color:#245ca8}
+.brand-contrast{color:#245ca8}.brand small{color:#66758a}
+.top-nav a{color:#45556d}.top-nav a:hover{color:#245ca8}
+.nav-cta{background:#f0f5fc;border-color:#d0deef;color:#245ca8}
+.nav-cta:hover{background:#e5effb}
+main{display:flex;flex-direction:column}
+.tool-section{order:0;padding-top:28px;scroll-margin-top:15px}
+.hero{order:2;min-height:0;display:block;padding:30px;margin-top:40px;background:#eaf1fb;border:1px solid #dce6f2;border-radius:16px}
+.hero-main{max-width:800px}
+.hero h1{font-size:clamp(28px,3.2vw,40px);letter-spacing:-.035em;line-height:1.2;margin:13px 0}
+.hero h1 span{background:none;color:#245ca8}
+.hero-main>p{font-size:15px;color:#4b6077}
+.hero-actions{margin-top:17px}.trust-strip{margin-top:18px;color:#566a81}
+.trust-strip svg{stroke:#245ca8}
+.trust-banner{display:none}
+.how{order:3}.bottom-grid{order:4}.creator{order:5}
+.eyebrow,.section-kicker,.screen-count{color:#315d93;letter-spacing:.08em;background:none;border:none;padding:0}
+.section-kicker{font-size:11px}
+.workspace-head h2,.how h2,.creator h2{color:#1d3048}
+.workspace-head p,.screen-heading p{color:#52647b}
+.mode-chip{background:#f0f4f9;border:1px solid #dde6f0;color:#51627b}
+.green-dot{display:none}
+.app-card,.info-card,.creator,.option-card{background:#fff;color:#1d2b3e;border:1px solid #dce3ec;box-shadow:0 5px 23px #203b5a0a}
+.wizard-top{background:#f8fafc;border-color:#dce3ec}
+.steps .step,.step{color:#52657e}
+.step.active,.step.done{color:#245ca8}
+.progress-track{background:#e2e9f2}#progressBar{background:#245ca8}
+.screen-heading h3{color:#1e3148}.required{color:#a33b36}
+label{color:#283a50}
+input,textarea,select{color:#1c2c40;background:#fff;border:1px solid #bfcbd9;font-size:16px}
+input::placeholder,textarea::placeholder{color:#6a7889}
+input:focus,textarea:focus,select:focus{border-color:#245ca8;box-shadow:0 0 0 3px #245ca824}
+.button.primary,.primary{background:#245ca8;color:#fff;box-shadow:none}
+.button.primary:hover,.primary:hover{background:#194b88;color:#fff}
+.button.secondary,.secondary,.button.quiet,.quiet{background:#f2f6fb;color:#254368;border:1px solid #cfdaea}
+.button.secondary:hover,.secondary:hover,.quiet:hover{background:#e8f0fa}
+.soft-note,.disclosure{background:#f1f5fb;color:#4b5e73;border-color:#dbe5f0}
+.status-message{color:#315b8e}
+.option-label{background:#eaf1fb;color:#245ca8}
+.values-grid button,.example-list button{background:#fff;color:#293b52;border:1px solid #cfd9e5}
+.values-grid button[aria-pressed="true"]{background:#e6f0fc;color:#17477f;border-color:#7298c9}
+.help,.optional,.privacy-actions button{color:#64738a}
+.how-grid article,.info-card{background:#fff;border-color:#dee6ef}
+.how h2 span{color:#245ca8}
+.info-card h2,.creator h2{color:#1e3047}
+.info-card p,.creator p{color:#566579}
+.creator-links a,.info-card a{color:#245ca8}
+.site-footer{background:#fff;color:#637187;border-color:#dce3ec}
+@media(max-width:720px){.shell{width:min(100% - 24px,1180px)}.tool-section{padding-top:16px}.hero{padding:22px 18px}.hero h1{font-size:29px}.head-inner{flex-wrap:wrap;gap:8px;padding-block:12px}.top-nav{gap:15px}.nav-cta{padding:9px 12px}.wizard-body{padding-inline:16px}}
+@media print{body{background:#fff!important;color:#111!important}.hero,.how,.bottom-grid,.site-header{display:none!important}}
